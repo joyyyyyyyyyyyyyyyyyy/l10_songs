@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Create the DBHelper object, passing in the
                 // activity's Context
-                //DBHelper db = new DBHelper(MainActivity.this);
+                DBHelper db = new DBHelper(MainActivity.this);
 
                 // get user input
                 String title = etSong.getText().toString();
@@ -66,17 +66,17 @@ public class MainActivity extends AppCompatActivity {
                 int year = Integer.parseInt(yr);
                 int stars = getstars();
 
-                // Create the DBHelper object, passing in the
-                // activity's Context
-                DBHelper db = new DBHelper(MainActivity.this);
-
                 // insert song into database
                 db.insertSong(title, singers, year, stars);
 
+                etSong.setText("");
+                etSingers.setText("");
+                etYear.setText("");
+
                 // retrieve all tasks from database table
-                //al = db.getSongs();
-               // adapter.notifyDataSetChanged();
-                //db.close();
+                al = db.getSongs();
+                adapter.notifyDataSetChanged();
+                db.close();
 
             }
         });
