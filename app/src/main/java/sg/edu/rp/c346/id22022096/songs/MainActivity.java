@@ -57,17 +57,17 @@ public class MainActivity extends AppCompatActivity {
                 DBHelper db = new DBHelper(MainActivity.this);
 
                 // get user input
-                String title = etSong.getText().toString();
-                String singers = etSingers.getText().toString();
+                String songtitle = etSong.getText().toString();
+                String singer = etSingers.getText().toString();
 
                 //etYear.getText() -> retrieves the input entered
                 //Integer.parseInt(yr) -> converts string value stored in 'yr' to int
                 String yr = etYear.getText().toString().trim();
                 int year = Integer.parseInt(yr);
-                int stars = getstars();
+                int star = getstars();
 
                 // insert song into database
-                db.insertSong(title, singers, year, stars);
+                db.insertSong(songtitle, singer, year, star);
 
                 etSong.setText("");
                 etSingers.setText("");
