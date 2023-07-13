@@ -56,12 +56,16 @@ public class secondActivity extends AppCompatActivity {
                 DBHelper db = new DBHelper(secondActivity.this);
 
                 // getTasks -> able to retrieve all data fields
-                ArrayList<song> data = db.getSongs();
-                ArrayList<String> data2 = db.getSongDetails();
-                db.close();
+                //ArrayList<song> data = db.getSongs();
+                //ArrayList<String> data2 = db.getSongDetails();
+                //db.close();
 
-                ArrayAdapter adapter = new ArrayAdapter(secondActivity.this, android.R.layout.simple_list_item_1,data );
-                lv.setAdapter(adapter);
+                //ArrayAdapter adapter = new ArrayAdapter(secondActivity.this, android.R.layout.simple_list_item_1,data );
+                //lv.setAdapter(adapter);
+
+                al.clear();
+                al.addAll(db.getSongbyStars(5));
+                adapter.notifyDataSetChanged();
 
             }
         });

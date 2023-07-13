@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -64,7 +65,6 @@ public class DBHelper extends SQLiteOpenHelper {
         // Close the database connection
         db.close();
 
-
         return result;
     }
 
@@ -91,15 +91,17 @@ public class DBHelper extends SQLiteOpenHelper {
         return songs;
     }
 
-    public ArrayList<String> getSongDetails() {
+    public ArrayList<song> getSongbyStars(int filterstar) {
         // Create an ArrayList that holds String objects
-        ArrayList<String> songs = new ArrayList<String>();
+        ArrayList<song> songs = new ArrayList<song>();
         // Get the instance of database to read
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_ID, COLUMN_TITLE, COLUMN_SINGER, COLUMN_YEAR, COLUMN_STAR};
+        String condition = COLUMN_STAR + ">=?";
+        String[] args = {String.valueOf(filterstar)};
         // Run the query and get back the Cursor object
 
-        Cursor cursor = db.query(TABLE_SONG, columns, null, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_SONG, columns, condition, args, null, null, null, null);
 
         // moveToFirst() moves to first row, null if no records
         if (cursor.moveToFirst()) {
@@ -111,7 +113,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 //  getString(0) retrieves first column data
                 //  getString(1) return second column data
                 //  getInt(0) if data is an integer value
-                songs.add(cursor.getString(1));
+                //songs.add(cursor.getString(1));
+
+                int id = cursor.getInt(0);
+                String title = cursor.getString(1);
+                String singers = cursor.getString(2);
+                int year = cursor.getInt(3);
+                int stars = cursor.getInt(4);
+                song obj = new song(id, title, singers, year, stars);
+                songs.add(obj);
+
             } while (cursor.moveToNext());
         }
         // Close connection
