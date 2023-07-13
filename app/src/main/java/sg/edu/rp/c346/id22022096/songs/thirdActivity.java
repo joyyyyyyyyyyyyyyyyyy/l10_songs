@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class thirdActivity extends AppCompatActivity {
 
@@ -67,7 +68,53 @@ public class thirdActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DBHelper db = new DBHelper(thirdActivity.this);
+                current.setTitle(etSong.getText().toString().trim());
+                current.setSingers(etSingers.getText().toString().trim());
+                int year = 0;
+                try {
+                    year = Integer.valueOf(etYear.getText().toString().trim());
+                } catch (Exception e){
+                    Toast.makeText(thirdActivity.this, "invalid year", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                current.setYear(year);
 
+                int rbselect = ratings.getCheckedRadioButtonId();
+                RadioButton rb = findViewById(rbselect);
+                current.setStar(Integer.parseInt(rb.getText().toString()));
+                int result = db.updateSong(current);
+                if (result>0){
+                    Toast.makeText(thirdActivity.this, "song has been updated", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent();
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    Toast.makeText(thirdActivity.this, "failed to update", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DBHelper db = new DBHelper(thirdActivity.this);
+                int result = db.deleteSong(current.get_id());
+                if (result>0){
+                    Toast.makeText(thirdActivity.this, "song has been deleted", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent();
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    Toast.makeText(thirdActivity.this, "failed to delete", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
