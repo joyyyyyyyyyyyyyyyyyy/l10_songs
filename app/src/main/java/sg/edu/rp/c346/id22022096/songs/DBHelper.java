@@ -45,7 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertSong(String title, String singers, int year, int stars) {
+    public long insertSong(String title, String singers, int year, int stars) {
         // Get an instance of the database for writing
         SQLiteDatabase db = this.getWritableDatabase();
         // We use ContentValues object to store the values for
@@ -60,9 +60,12 @@ public class DBHelper extends SQLiteOpenHelper {
         // Store the column name as key and the star as value
         values.put(COLUMN_STAR, stars);
         // Insert the row into the TABLE_SONG
-        db.insert(TABLE_SONG, null, values);
+        long result = db.insert(TABLE_SONG, null, values);
         // Close the database connection
         db.close();
+
+
+        return result;
     }
 
     public ArrayList<song> getSongs() {

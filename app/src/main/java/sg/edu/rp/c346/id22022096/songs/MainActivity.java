@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -60,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
                 String songtitle = etSong.getText().toString();
                 String singer = etSingers.getText().toString();
 
+                if (etSong.length() == 0 || etSingers.length() == 0){
+                    Toast.makeText(MainActivity.this, "please fill in song title and singer name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 //etYear.getText() -> retrieves the input entered
                 //Integer.parseInt(yr) -> converts string value stored in 'yr' to int
                 String yr = etYear.getText().toString().trim();
@@ -67,16 +73,25 @@ public class MainActivity extends AppCompatActivity {
                 int star = getstars();
 
                 // insert song into database
-                db.insertSong(songtitle, singer, year, star);
+                long result = db.insertSong(songtitle, singer, year, star);
 
-                etSong.setText("");
-                etSingers.setText("");
-                etYear.setText("");
+                //etSong.setText("");
+                //etSingers.setText("");
+                //etYear.setText("");
+
+                if (result != -1) {
+                    Toast.makeText(MainActivity.this, "song successfully inserted", Toast.LENGTH_LONG).show();
+                    etSong.setText("");
+                    etSingers.setText("");
+                    etYear.setText("");
+                } else {
+                    Toast.makeText(MainActivity.this, "insertion failed", Toast.LENGTH_LONG).show();
+                }
 
                 // retrieve all tasks from database table
-                al = db.getSongs();
-                adapter.notifyDataSetChanged();
-                db.close();
+                //al = db.getSongs();
+                //adapter.notifyDataSetChanged();
+                //db.close();
 
             }
         });

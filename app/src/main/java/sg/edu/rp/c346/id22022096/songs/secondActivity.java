@@ -2,9 +2,11 @@ package sg.edu.rp.c346.id22022096.songs;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -27,9 +29,24 @@ public class secondActivity extends AppCompatActivity {
         btnStars = findViewById(R.id.btnShowStars);
         lv = findViewById(R.id.lv);
 
-        al = new ArrayList<>();
+        DBHelper db = new DBHelper(this);
+        al = db.getSongs();
+        db.close();
+
+        //al = new ArrayList<>();
         adapter = new ArrayAdapter<>(secondActivity.this, android.R.layout.simple_list_item_1, al);
         lv.setAdapter(adapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(secondActivity.this, thirdActivity.class);
+                song Songs = al.get(position);
+                i.putExtra("song", Songs);
+                startActivity(i);
+
+            }
+        });
 
         btnStars.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -48,6 +65,14 @@ public class secondActivity extends AppCompatActivity {
 
             }
         });
-
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DBHelper db = new DBHelper(secondActivity.this);
+        al.clear();
+        al.addAll(db.getSongs());
+        db.close();
+        adapter.notifyDataSetChanged();
     }
 }
