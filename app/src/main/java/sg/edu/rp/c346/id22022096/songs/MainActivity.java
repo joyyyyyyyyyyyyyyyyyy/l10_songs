@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -60,17 +61,39 @@ public class MainActivity extends AppCompatActivity {
                 // get user input
                 String songtitle = etSong.getText().toString();
                 String singer = etSingers.getText().toString();
+                //String stryr = etYear.getText().toString().trim();
 
-                if (etSong.length() == 0 || etSingers.length() == 0){
+                if (songtitle.length() == 0 || singer.length() == 0){
                     Toast.makeText(MainActivity.this, "please fill in song title and singer name", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 //etYear.getText() -> retrieves the input entered
                 //Integer.parseInt(yr) -> converts string value stored in 'yr' to int
-                String yr = etYear.getText().toString().trim();
-                int year = Integer.parseInt(yr);
-                int star = getstars();
+                String stryr = etYear.getText().toString().trim();
+                //int year = Integer.parseInt(stryr);
+                int year = Integer.valueOf(stryr);
+
+                int star = getStars();
+
+                //int checkradioid = ratings.getCheckedRadioButtonId();
+
+                //if (checkradioid == R.id.starOne) {
+                    //star += 1;
+
+               // } else if (checkradioid == R.id.starTwo) {
+                    //star += 2;
+
+                //} else if (checkradioid == R.id.starThree) {
+                    //star += 3;
+
+                //} else if (checkradioid == R.id.starFour) {
+                    //star += 4;
+
+                //} else if (checkradioid == R.id.starFive) {
+                   // star += 5;
+
+               // }
 
                 // insert song into database
                 long result = db.insertSong(songtitle, singer, year, star);
@@ -106,11 +129,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private int getstars() {
-        int getstarsID = ratings.getCheckedRadioButtonId();
-        RadioButton star = findViewById(getstarsID);
-        int stars = Integer.parseInt(star.getText().toString());
-        return stars;
+    //private int getstars() {
+        //int getstarsID = ratings.getCheckedRadioButtonId();
+        //RadioButton star = findViewById(/getstarsID);
+        //int stars = Integer.parseInt(star.getText().toString());
+        //return stars;
 
+    //}
+
+    private int getStars() {
+        int stars = 1;
+        int checkedRadioButtonId = ratings.getCheckedRadioButtonId();
+
+        if (checkedRadioButtonId == R.id.starOne) {
+            stars = 1;
+        } else if (checkedRadioButtonId == R.id.starTwo) {
+            stars = 2;
+        } else if (checkedRadioButtonId == R.id.starThree) {
+            stars = 3;
+        } else if (checkedRadioButtonId == R.id.starFour) {
+            stars = 4;
+        } else if (checkedRadioButtonId == R.id.starFive) {
+            stars = 5;
+        }
+
+        return stars;
     }
 }
