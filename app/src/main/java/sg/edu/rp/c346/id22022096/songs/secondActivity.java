@@ -15,11 +15,25 @@ import java.util.ArrayList;
 
 public class secondActivity extends AppCompatActivity {
 
-    Button btnStars;
+    Button btnStars, btnback;
     ListView lv;
 
     ArrayList<song> al;
     ArrayAdapter<song> adapter;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        al = new ArrayList<song>();
+        adapter = new ArrayAdapter<>(secondActivity.this, android.R.layout.simple_list_item_1, al);
+        lv.setAdapter(adapter);
+        Intent intent = getIntent();
+        DBHelper db = new DBHelper(secondActivity.this);
+        al.clear();
+        al.addAll(db.getSongs());
+        //db.close();
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +41,7 @@ public class secondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second2);
 
         btnStars = findViewById(R.id.btnShowStars);
+        btnback = findViewById(R.id.btnback);
         lv = findViewById(R.id.lv);
 
         DBHelper db = new DBHelper(this);
@@ -34,8 +49,8 @@ public class secondActivity extends AppCompatActivity {
         db.close();
 
         //al = new ArrayList<>();
-        adapter = new ArrayAdapter<>(secondActivity.this, android.R.layout.simple_list_item_1, al);
-        lv.setAdapter(adapter);
+        //adapter = new ArrayAdapter<>(secondActivity.this, android.R.layout.simple_list_item_1, al);
+        //lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -69,14 +84,12 @@ public class secondActivity extends AppCompatActivity {
 
             }
         });
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        DBHelper db = new DBHelper(secondActivity.this);
-        al.clear();
-        al.addAll(db.getSongs());
-        db.close();
-        adapter.notifyDataSetChanged();
+
+        btnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 }

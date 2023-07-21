@@ -56,8 +56,19 @@ public class song implements Serializable {
     @Override
     public String toString() {
         String stringstar = "";
-        for (int i = 0; i < stars; i ++) {
+        //for (int i = 0; i < stars; i ++) {
+            //stringstar = "*";
+        //}
+        if (stars == 1) {
             stringstar = "*";
+        } else if (stars == 2) {
+            stringstar = "**";
+        } else if (stars == 3) {
+            stringstar = "***";
+        } else if (stars == 4) {
+            stringstar = "****";
+        } else if (stars == 5) {
+            stringstar = "*****";
         }
         return title + "\n" + singers + "\n" + year + "\n" + stringstar;
     }

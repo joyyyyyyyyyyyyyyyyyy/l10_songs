@@ -79,21 +79,21 @@ public class MainActivity extends AppCompatActivity {
                 //int checkradioid = ratings.getCheckedRadioButtonId();
 
                 //if (checkradioid == R.id.starOne) {
-                    //star += 1;
+                //star += 1;
 
-               // } else if (checkradioid == R.id.starTwo) {
-                    //star += 2;
+                // } else if (checkradioid == R.id.starTwo) {
+                //star += 2;
 
                 //} else if (checkradioid == R.id.starThree) {
-                    //star += 3;
+                //star += 3;
 
                 //} else if (checkradioid == R.id.starFour) {
-                    //star += 4;
+                //star += 4;
 
                 //} else if (checkradioid == R.id.starFive) {
-                   // star += 5;
+                // star += 5;
 
-               // }
+                // }
 
                 // insert song into database
                 long result = db.insertSong(songtitle, singer, year, star);
@@ -130,10 +130,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //private int getstars() {
-        //int getstarsID = ratings.getCheckedRadioButtonId();
-        //RadioButton star = findViewById(/getstarsID);
-        //int stars = Integer.parseInt(star.getText().toString());
-        //return stars;
+    //int getstarsID = ratings.getCheckedRadioButtonId();
+    //RadioButton star = findViewById(/getstarsID);
+    //int stars = Integer.parseInt(star.getText().toString());
+    //return stars;
 
     //}
 
