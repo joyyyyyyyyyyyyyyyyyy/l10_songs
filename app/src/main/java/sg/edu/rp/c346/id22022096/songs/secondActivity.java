@@ -19,13 +19,14 @@ public class secondActivity extends AppCompatActivity {
     ListView lv;
 
     ArrayList<song> al;
-    ArrayAdapter<song> adapter;
+    //ArrayAdapter<song> adapter;
+    CustomAdapter adapter;
 
     @Override
     protected void onResume() {
         super.onResume();
         al = new ArrayList<song>();
-        adapter = new ArrayAdapter<>(secondActivity.this, android.R.layout.simple_list_item_1, al);
+        adapter = new CustomAdapter(this, R.layout.row, al);
         lv.setAdapter(adapter);
         Intent intent = getIntent();
         DBHelper db = new DBHelper(secondActivity.this);
