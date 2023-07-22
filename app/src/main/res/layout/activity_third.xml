@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/photo_2023_07_23_00_43_51"
+    android:backgroundTint="#80E3E3E3"
+    android:backgroundTintMode="src_over">
 
     <TextView
         android:id="@+id/tvID"
