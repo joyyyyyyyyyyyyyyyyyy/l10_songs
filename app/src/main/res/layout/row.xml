@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/photo_2023_07_23_00_43_51"
+    android:backgroundTint="#80E3E3E3"
+    android:backgroundTintMode="src_over">
+
+    <TextView
+        android:id="@+id/songTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FF0000"
+        android:text="song name" />
+
+    <TextView
+        android:id="@+id/singers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="singer" />
+
+    <TextView
+        android:id="@+id/year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="year" />
+
+    <TextView
+        android:id="@+id/stars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="star"
+        android:textColor="#FFE500" />
+
+</LinearLayout>
